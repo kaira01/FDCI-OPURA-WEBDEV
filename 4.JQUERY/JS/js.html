@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title> JavaScript Part 2</title>
+</head>
+<body>
+<h3> 1. Longest String</h3>
+Enter a sentence: <input id="no_input" type="text" size="50" autofocus>
+<p id="msg"> </p> 
+<button id="button_me" onclick="test()">Submit</button>
+
+<br><br><hr>
+
+<!--html2-->
+
+<h3>2. Prime Numbers</h3> 
+<form  name="form2">
+ Enter number:             
+ <input type="text" name=n value=""> 
+<input type="button" value="Submit" onclick="primeNumbers()">
+</form>
+
+<br><br><hr>
+
+
+<!--html3-->
+
+<h3>3. Hour to minute Conversion</h3> 
+<form  name="form3">
+ Enter hour/s:             
+ <input type="text" name=h value=""> 
+ <p id="msg3"></p>
+<input type="button" value="Submit" onclick="convertHM()">
+</form>
+
+       
+
+<!--JS1	-->
+<script type="text/javascript">
+
+function longestWord(string) {
+    var str = string.split( " " );
+    var longest =0;
+    var word = null;
+    str.forEach(function(str) {
+        if (longest < str.length) {
+            longest = str.length;
+            word = str;
+        }
+    });
+    return word;
+}
+
+function test()
+{
+
+str_string=document.getElementById("no_input").value;
+
+ document.getElementById("msg").innerHTML = "The longest string in the sentence is "  + 
+ longestWord(str_string)+".";
+} 
+
+
+
+//JS2
+
+function primeNumbers() { 
+              
+  var n, i=0, flag = true;
+                        
+            n = document.form2.n.value; 
+            n = parseInt(n) 
+            for(i = 2; i <= n - 1; i++) 
+                if (n % i == 0) { 
+                    flag = false; 
+                    break; 
+                } 
+                  
+            if (flag == true) 
+                alert(n + " is a prime");
+
+            else
+                alert(n + " is not a prime"); 
+        } 
+
+//JS3
+
+
+function convertHM(){
+
+var hours = parseInt(document.form3.h.value);
+var minutes = hours * 60;
+
+document.getElementById("msg3").innerHTML = minutes + " Minutes";
+
+}
+
+</script>
+
+</body>
+</html>
+
