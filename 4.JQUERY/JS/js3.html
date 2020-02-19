@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>JAVSCRIPT ACTIVITY PART 3</title>
+</head>
+<body>
+
+<!--start of html code-->
+
+<!--Number 1-->
+
+<form name="form1"> 
+Name:<input id="pangalan" type="text" size="30" autofocus> &nbsp; Age:<input id="edad" type="number"> &nbsp;&nbsp; 
+<input type="button" value="Add" onclick="numberOne()">
+
+<h2>Final Object:</h2>
+<p id="msgfinal"> </p> 
+
+<h2>Readable Format:</h2>
+<p id="msgread"></p>
+
+</form>	
+<!--Number 2-->
+
+<form name="form2">
+
+<h5>PRODUCT INVENTORY</h5>
+
+Name: <input id="pname" type="text" size="30" autofocus><br><br>
+Stocks: <input id="stocks" type="number"><br><br>
+Unit Price: <input id="price" type="number"><br><br>
+
+<input type="button" value="Add" onclick="numberTwo()"><br>
+
+<h4>Product List</h4>
+<p id="prodlist"></p>
+<input type="button" value="Calculate" onclick="numberThree()">
+<br>
+
+<h4>Product Total Value</h4>
+<p id="prodtotal"></p>
+
+</form>
+
+<!--end of html code-->
+
+<!--start of javasript code-->
+
+<script type="text/javascript">
+
+function numberOne(){
+
+var name_str = document.getElementById("pangalan").value;
+var age_int = document.getElementById("edad").value;
+var person ={
+	name:"",
+	age:""
+};
+
+
+//validation
+if(name_str == " " && age_int == " "){
+	alert("One or two fields were missing:");
+	return false;
+}
+	
+else if (name_str != name_str.toString){
+	alert("Input valid characters only:");
+	return false;
+}
+
+//display object and readable format
+else{
+
+document.getElementById("msgfinal").innerHTML = numberOne(person) + ",";
+
+document.getElementById("msgread").innerHTML = "Name:" + name_str + " " +"Age:" + age_int;
+
+
+}
+
+}
+
+
+function numberTwo(){
+
+var pname = document.getElementById("pname").value;
+var stock = document.getElementById("stocks").value;
+var prices = document.getElementById("price").value;
+
+
+//empty values validation 
+if(pname == "" && stock == "" && prices ==""){
+	alert("Some fields were missing:");
+	return false;
+}
+else{
+
+	document.getElementById("prodlist").innerHTML = "Product Name:" + pname + " " + "Stock/Quantity Amt:" + stock + " " + "Price:" + prices; 
+
+}
+
+}
+
+
+</script>
+<!--end of javasript code-->
+
+<style type="text/css">
+	
+form {
+  background-color: lightgrey;
+  width: 600px;
+  border: 15px;
+  padding: 50px;
+  margin: 20px;
+}
+</style>
+
+</body>
+</html>
