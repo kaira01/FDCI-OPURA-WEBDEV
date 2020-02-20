@@ -2,7 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>JAVSCRIPT ACTIVITY PART 3</title>
+	<title>JS ACTIVITY PART 3</title>
+	<style type="text/css">
+	
+	form {
+		  background-color: lightgrey;
+		  width: 600px;
+		  border: 15px;
+		  padding: 50px;
+		  margin: 20px;
+		 }
+</style>
 </head>
 <body>
 
@@ -54,18 +64,18 @@ function numberOne(){
 var name_str = document.getElementById("pangalan").value;
 var age_int = document.getElementById("edad").value;
 var person ={
-	name:"",
-	age:""
+	name:name_str,
+	age:age_int
 };
 
 
 //validation
-if(name_str == " " && age_int == " "){
+if((name_str == " " || age_int == " ") && (name_str == null || age_int == null)){
 	alert("One or two fields were missing:");
 	return false;
 }
 	
-else if (name_str != name_str.toString){
+else if (name_str != name_str.toString() && age_int != parseInt(age_int)){
 	alert("Input valid characters only:");
 	return false;
 }
@@ -73,10 +83,12 @@ else if (name_str != name_str.toString){
 //display object and readable format
 else{
 
-document.getElementById("msgfinal").innerHTML = numberOne(person) + ",";
+
+console.log(person);
+
+document.getElementById("msgfinal").innerHTML = person;
 
 document.getElementById("msgread").innerHTML = "Name:" + name_str + " " +"Age:" + age_int;
-
 
 }
 
@@ -90,6 +102,7 @@ var stock = document.getElementById("stocks").value;
 var prices = document.getElementById("price").value;
 
 
+
 //empty values validation 
 if(pname == "" && stock == "" && prices ==""){
 	alert("Some fields were missing:");
@@ -98,25 +111,14 @@ if(pname == "" && stock == "" && prices ==""){
 else{
 
 	document.getElementById("prodlist").innerHTML = "Product Name:" + pname + " " + "Stock/Quantity Amt:" + stock + " " + "Price:" + prices; 
-
 }
 
 }
+
 
 
 </script>
 <!--end of javasript code-->
-
-<style type="text/css">
-	
-form {
-  background-color: lightgrey;
-  width: 600px;
-  border: 15px;
-  padding: 50px;
-  margin: 20px;
-}
-</style>
 
 </body>
 </html>
