@@ -59,38 +59,44 @@ Unit Price: <input id="price" type="number"><br><br>
 
 <script type="text/javascript">
 
+
+
 function numberOne(){
 
-var name_str = document.getElementById("pangalan").value;
-var age_int = document.getElementById("edad").value;
+var namestr = document.getElementById("pangalan").value;
+var ageint = document.getElementById("edad").value;
 var person ={
-	name:name_str,
-	age:age_int
+	name:namestr,
+	age:ageint
 };
 
 
-//validation
-if((name_str == " " || age_int == " ") && (name_str == null || age_int == null)){
-	alert("One or two fields were missing:");
+	//validation - failed :(
+if(namestr == " " && ageint == " "){
+	alert("One or two fields were missing:"); 
 	return false;
 }
 	
-else if (name_str != name_str.toString() && age_int != parseInt(age_int)){
-	alert("Input valid characters only:");
+else if (namestr == null && ageint == null){
+	alert("Invalid");
 	return false;
 }
+else if (namestr != namestr.toString()){
+	return alert("Input valid characters only:");
 
-//display object and readable format
+}
+
+//display object and readable format if passed validation 
 else{
 
-
-console.log(person);
+console.log(person); //only for determining output
 
 document.getElementById("msgfinal").innerHTML = person;
 
-document.getElementById("msgread").innerHTML = "Name:" + name_str + " " +"Age:" + age_int;
+document.getElementById("msgread").innerHTML = "Name:" + namestr + " " +"Age:" + ageint;
 
 }
+
 
 }
 
@@ -103,17 +109,27 @@ var prices = document.getElementById("price").value;
 
 
 
-//empty values validation 
+//validation 
 if(pname == "" && stock == "" && prices ==""){
 	alert("Some fields were missing:");
 	return false;
 }
+
+else if (pname == null && stock == null && prices ==null){
+	alert("Error here");
+	return false;
+
+}
+
+//display if passed validation 
 else{
 
 	document.getElementById("prodlist").innerHTML = "Product Name:" + pname + " " + "Stock/Quantity Amt:" + stock + " " + "Price:" + prices; 
+
 }
 
 }
+
 
 
 
