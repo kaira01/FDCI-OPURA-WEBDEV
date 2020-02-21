@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+	<title>JS ACTIVITY PART 3</title>
+	<style type="text/css">
+	
+	form {
+		  background-color: lightgrey;
+		  width: 600px;
+		  border: 15px;
+		  padding: 50px;
+		  margin: 20px;
+		 }
+</style>
+</head>
+<body>
+
+<!--start of html code-->
+
+<!--Number 1-->
+
+<form name="form1"> 
+Name:
+	<input id="pangalan" type="text" size="30" autofocus> &nbsp; 
+Age:
+	<input id="edad" type="number"> &nbsp;&nbsp; 
+	<input type="button" value="Add" onclick="numberOne()">
+
+<h2>Final Object:</h2>
+<p id="msgfinal"> </p> 
+
+<h2>Readable Format:</h2>
+<p id="msgread"></p>
+
+</form>	
+<!--Number 2-->
+
+<form name="form2">
+
+<h5>PRODUCT INVENTORY</h5>
+
+Name: 
+	<input id="pname" type="text" size="30" autofocus><br><br>
+Stocks: 
+	<input id="stocks" type="number"><br><br>
+Unit Price: 
+	<input id="price" type="number"> &nbsp; <sup><em>*Price only accepts whole number*</sup></h6><br><br>
+
+	<input type="button" value="Add" onclick="numberTwo()"><br>
+
+<h4>Product List</h4>
+<p id="prodlist"></p>
+	<input type="button" value="Calculate" onclick="numberThree()">
+<br>
+
+<h4>Product Total Value</h4>
+<p id="prodtotal"></p>
+
+</form>
+
+<!--end of html code-->
+
+<!--start of javasript code-->
+
+<script type="text/javascript">
+
+function numberOne(){
+
+var nameStr = document.getElementById("pangalan").value;
+var ageInt = document.getElementById("edad").value;
+var person ={
+	name:nameStr,
+	age:ageInt};
+var x;
+
+//validation using RegEx  
+
+validRegEx = /[a-z]/gi;
+RegExforAge = /^\d+$/;
+
+
+if(nameStr.length == 0 || ageInt.length == 0){
+	alert("One or both fields were missing values:");
+	return true;
+}
+
+else if (nameStr != nameStr.match(validRegEx) && ageInt != ageInt.match(RegExforAge)){
+
+	alert ("Invalid Values Are Not Allowed!");
+	return;
+}
+
+//display if passed validation 
+else{
+
+console.log(person); //review output
+
+for (x in person){
+
+document.getElementById("msgread").innerHTML = "Name:" + nameStr + " " +"Age:" + ageInt;	
+
+}
+
+}
+
+document.getElementById("msgfinal").innerHTML = person;
+
+}
+
+
+function numberTwo(){
+
+var pname = document.getElementById("pname").value;
+var stock = document.getElementById("stocks").value;
+var prices = document.getElementById("price").value;
+
+
+
+//validation
+validRegEx1 = /[a-z]/gi;
+RegExforNum1 = /^\d+$/;
+
+if(pname.length == 0 || stock.length == 0 || prices.length ==0){
+	alert("One or some fields were missing values:");
+	return true;
+}
+
+else if (pname != pname.match(validRegEx1) && stock != stock.match(RegExforNum1) || prices !=prices.match(RegExforNum1)){
+	alert ("Invalid Characters Not Allowed!");
+	return false;
+}
+
+
+else{
+
+	document.getElementById("prodlist").innerHTML = "Product Name:" + pname + " " + "Stock/Quantity Amt:" + stock + " " + "Price:" + prices; 
+}
+
+}
+
+</script>
+<!--end of javasript code-->
+
+</body>
+</html>
