@@ -21,8 +21,11 @@
 <!--Number 1-->
 
 <form name="form1"> 
-Name:<input id="pangalan" type="text" size="30" autofocus> &nbsp; Age:<input id="edad" type="number"> &nbsp;&nbsp; 
-<input type="button" value="Add" onclick="numberOne()">
+Name:
+	<input id="pangalan" type="text" size="30" autofocus> &nbsp; 
+Age:
+	<input id="edad" type="number"> &nbsp;&nbsp; 
+	<input type="button" value="Add" onclick="numberOne()">
 
 <h2>Final Object:</h2>
 <p id="msgfinal"> </p> 
@@ -37,15 +40,18 @@ Name:<input id="pangalan" type="text" size="30" autofocus> &nbsp; Age:<input id=
 
 <h5>PRODUCT INVENTORY</h5>
 
-Name: <input id="pname" type="text" size="30" autofocus><br><br>
-Stocks: <input id="stocks" type="number"><br><br>
-Unit Price: <input id="price" type="number"><br><br>
+Name: 
+	<input id="pname" type="text" size="30" autofocus><br><br>
+Stocks: 
+	<input id="stocks" type="number"><br><br>
+Unit Price: 
+	<input id="price" type="number"> &nbsp; <sup><em>*Price only accepts whole number*</sup></h6><br><br>
 
-<input type="button" value="Add" onclick="numberTwo()"><br>
+	<input type="button" value="Add" onclick="numberTwo()"><br>
 
 <h4>Product List</h4>
 <p id="prodlist"></p>
-<input type="button" value="Calculate" onclick="numberThree()">
+	<input type="button" value="Calculate" onclick="numberThree()">
 <br>
 
 <h4>Product Total Value</h4>
@@ -59,44 +65,46 @@ Unit Price: <input id="price" type="number"><br><br>
 
 <script type="text/javascript">
 
-
-
 function numberOne(){
 
-var namestr = document.getElementById("pangalan").value;
-var ageint = document.getElementById("edad").value;
+var nameStr = document.getElementById("pangalan").value;
+var ageInt = document.getElementById("edad").value;
 var person ={
-	name:namestr,
-	age:ageint
-};
+	name:nameStr,
+	age:ageInt};
+var x;
+
+//validation using RegEx  
+
+validRegEx = /[a-z]/gi;
+RegExforAge = /^\d+$/;
 
 
-	//validation - failed :(
-if(namestr == " " && ageint == " "){
-	alert("One or two fields were missing:"); 
-	return false;
-}
-	
-else if (namestr == null && ageint == null){
-	alert("Invalid");
-	return false;
-}
-else if (namestr != namestr.toString()){
-	return alert("Input valid characters only:");
-
+if(nameStr.length == 0 || ageInt.length == 0){
+	alert("One or both fields were missing values:");
+	return true;
 }
 
-//display object and readable format if passed validation 
+else if (nameStr != nameStr.match(validRegEx) && ageInt != ageInt.match(RegExforAge)){
+
+	alert ("Invalid Values Are Not Allowed!");
+	return;
+}
+
+//display if passed validation 
 else{
 
-console.log(person); //only for determining output
+console.log(person); //review output
 
-document.getElementById("msgfinal").innerHTML = person;
+for (x in person){
 
-document.getElementById("msgread").innerHTML = "Name:" + namestr + " " +"Age:" + ageint;
+document.getElementById("msgread").innerHTML = "Name:" + nameStr + " " +"Age:" + ageInt;	
 
 }
 
+}
+
+document.getElementById("msgfinal").innerHTML = person;
 
 }
 
@@ -109,29 +117,27 @@ var prices = document.getElementById("price").value;
 
 
 
-//validation 
-if(pname == "" && stock == "" && prices ==""){
-	alert("Some fields were missing:");
+//validation
+validRegEx1 = /[a-z]/gi;
+RegExforNum1 = /^\d+$/;
+
+if(pname.length == 0 || stock.length == 0 || prices.length ==0){
+	alert("One or some fields were missing values:");
+	return true;
+}
+
+else if (pname != pname.match(validRegEx1) && stock != stock.match(RegExforNum1) || prices !=prices.match(RegExforNum1)){
+	alert ("Invalid Characters Not Allowed!");
 	return false;
 }
 
-else if (pname == null && stock == null && prices ==null){
-	alert("Error here");
-	return false;
 
-}
-
-//display if passed validation 
 else{
 
 	document.getElementById("prodlist").innerHTML = "Product Name:" + pname + " " + "Stock/Quantity Amt:" + stock + " " + "Price:" + prices; 
-
 }
 
 }
-
-
-
 
 </script>
 <!--end of javasript code-->
