@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>JS ACTIVITY PART 3</title>
-	<style type="text/css">
+<title>JS ACTIVITY PART 3</title>
+<style type="text/css">
 	
 	form {
 		  background-color: lightgrey;
@@ -25,7 +25,7 @@ Name:
 	<input id="pangalan" type="text" size="30" autofocus> &nbsp; 
 Age:
 	<input id="edad" type="number"> &nbsp;&nbsp; 
-	<input type="button" value="Add" onclick="numberOne()">
+	<input type="button" id="btn1" value="Add" onclick="numberOne()">
 
 <h2>Final Object:</h2>
 <p id="msgfinal"> </p> 
@@ -36,32 +36,33 @@ Age:
 </form>	
 <!--Number 2-->
 
-<form name="form2">
+<form id="form2">
 
-<h5>PRODUCT INVENTORY</h5>
+<h3>PRODUCT INVENTORY</h3>
 
-Name: 
-	<input id="pname" type="text" size="30" autofocus><br><br>
+Product Name: 
+	<input type="text" id="pname" size="30"><br><br>	
 Stocks: 
 	<input id="stocks" type="number"><br><br>
 Unit Price: 
-	<input id="price" type="number"> &nbsp; <sup><em>*Price only accepts whole number*</sup></h6><br><br>
+	<input id="price" type="number"> &nbsp;<br><br>
+	<input type="submit" value="Add" id="btn2_submit"><br>
 
-	<input type="button" value="Add" onclick="numberTwo()"><br>
+<h5>Product List:</h5><br>
+	<p id="prodlist"></p>
+	 <button type="button" onclick="calc()">Calculate</button><br>
+	 <h5>Product Total Value:</h5><br>
+	 <div id="prodtotal_value"></div>
 
-<h4>Product List</h4>
-<p id="prodlist"></p>
-	<input type="button" value="Calculate" onclick="numberThree()">
-<br>
-
-<h4>Product Total Value</h4>
-<p id="prodtotal"></p>
+	 <p id="prodtotal"></p>
 
 </form>
 
 <!--end of html code-->
 
 <!--start of javasript code-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <script type="text/javascript">
 
@@ -69,15 +70,17 @@ function numberOne(){
 
 var nameStr = document.getElementById("pangalan").value;
 var ageInt = document.getElementById("edad").value;
-var person ={
-	name:nameStr,
-	age:ageInt};
-var x;
+var identity = {
+	name: nameStr,
+	age: ageInt
+}
+
 
 //validation using RegEx  
 
-validRegEx = /[a-z]/gi;
-RegExforAge = /^\d+$/;
+var validRegEx = /^[A-Za-z]+$/;
+var RegExforAge = /^\d+$/;
+
 
 
 if(nameStr.length == 0 || ageInt.length == 0){
@@ -85,62 +88,100 @@ if(nameStr.length == 0 || ageInt.length == 0){
 	return true;
 }
 
-else if (nameStr != nameStr.match(validRegEx) && ageInt != ageInt.match(RegExforAge)){
+else if (nameStr != nameStr.match(validRegEx) || ageInt != ageInt.match(RegExforAge)){
 
-	alert ("Invalid Values Are Not Allowed!");
-	return;
+	alert ("Invalid/ Incorrect Values Are Not Allowed!");
+	return false;
+}
+
+else if(ageInt == 0){
+	alert("Age should at least be greater than 0");
+	return false;
+
 }
 
 //display if passed validation 
 else{
 
-console.log(person); //review output
+console.log(identity); 
 
-for (x in person){
+$("#msgfinal").append(JSON.stringify(identity) + '<br>');
+$("#msgread").append("Name:" + nameStr + " " + '&nbsp;' + "Age:" + ageInt + '<br>'); 
 
-document.getElementById("msgread").innerHTML = "Name:" + nameStr + " " +"Age:" + ageInt;	
-
-}
-
-}
-
-document.getElementById("msgfinal").innerHTML = person;
-
-}
-
-
-function numberTwo(){
-
-var pname = document.getElementById("pname").value;
-var stock = document.getElementById("stocks").value;
-var prices = document.getElementById("price").value;
-
-
-
-//validation
-validRegEx1 = /[a-z]/gi;
-RegExforNum1 = /^\d+$/;
-
-if(pname.length == 0 || stock.length == 0 || prices.length ==0){
-	alert("One or some fields were missing values:");
-	return true;
-}
-
-else if (pname != pname.match(validRegEx1) && stock != stock.match(RegExforNum1) || prices !=prices.match(RegExforNum1)){
-	alert ("Invalid Characters Not Allowed!");
-	return false;
-}
-
-
-else{
-
-	document.getElementById("prodlist").innerHTML = "Product Name:" + pname + " " + "Stock/Quantity Amt:" + stock + " " + "Price:" + prices; 
 }
 
 }
 
+var f2 = []; 
+document.getElementById("form2").onsubmit = function() {
+  	if(isFormValid() == true) {
+	  	var pname = document.getElementById("pname").value;
+	  	var stocks = document.getElementById("stocks").value;
+	  	var price = document.getElementById("price").value;
+	  	var inv = {
+	  				pname: pname,
+	  				stocks: stocks,
+	  				price: price
+	  			};
+	  			
+	  	f2.push(inv);
+
+	  	document.getElementById("prodlist").innerHTML = "";
+	  		for (var i in f2){ 
+	  			if (i == f2[f2.length -1]){ 
+						document.getElementById("prodlist").innerHTML +=Object.keys(inv)[0] +": " + f2[i].pname + ", " + Object.keys(inv)[1]+": " + f2[i].stocks + ", " + Object.keys(inv)[2]+": " + f2[i].price;
+	  				} else {
+	  					document.getElementById("prodlist").innerHTML +=Object.keys(inv)[0] +": " + f2[i].pname + ", " + Object.keys(inv)[1]+": " + f2[i].stocks + ", " + Object.keys(inv)[2]+": " + f2[i].price + "<br>";
+	  				}
+	  			}
+	  		
+	  		}
+  			return false; 
+  		};
+
+  		//calculation product total value
+  	function calc(){
+  			document.getElementById("prodtotal").innerHTML = ""; 
+	     	var total = 0;
+
+			for (var i in f2) {
+				var subTotal = parseFloat(f2[i].stocks) * parseFloat(f2[i].price);
+				total += subTotal;
+				if (i == f2[f2.length -1]){
+					document.getElementById("prodtotal").innerHTML += f2[i].pname + " will have a value of: " + subTotal;
+				} else {
+					document.getElementById("prodtotal").innerHTML += f2[i].pname + " will have a value of:" + subTotal + "<br>";
+				}
+			}
+			document.getElementById("prodtotal").innerHTML += "Total Value " +total; 
+  		}
+
+    		function isFormValid() {
+  			var pname = document.getElementById("pname").value;
+  			var stocks = parseFloat(document.getElementById("stocks").value);
+			var price = parseFloat(document.getElementById("price").value);
+
+
+
+			if (pname.length == 0 || stocks.length == 0 && price.length== 0){
+  				alert("One or more fields are empty");
+  				return false;
+  			} else if (stocks < 1) {
+  				alert("Stocks must be greater than 0");
+  				return false;
+  			} else if (price < 1) {
+  				alert("Price must be greater than 0");
+  				return false;
+  			} 
+  			for(var i=0; i<f2.length; i++){
+  				if(String(f2[i].pname).toUpperCase() == pname.toUpperCase()) {
+  					alert("Product name already exist");
+  					return false;
+  				}
+  			}
+
+  			return true;
+  		}
 </script>
-<!--end of javasript code-->
-
 </body>
 </html>
