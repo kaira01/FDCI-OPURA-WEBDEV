@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head lang=en>
+<meta charset="utf-8">
+	<title>JS ACTIVITY PART 4</title>
+<style type="text/css">
+	
+	form {
+		  background-color: lightgrey;
+		  width: 700px;
+		  border: 15px;
+		  padding: 50px;
+		  margin: 20px;
+		 }
+</style>
+</head>
+<body>
+
+<form id="form1" onsubmit="function();">
+<h3>PROFILE</h3><br>
+
+What's Your Name? 
+<input id="name" type="text" size="70" autofocus> <br><br>
+Gender:
+
+<select id="gender">
+	<option value="female">female</option>
+	<option value="male">male</option>
+	<option value="other">other</option>
+</select>
+
+<br><br>
+<div id="hhobby">
+<p id="container"></p>	
+Hiking<input type = "checkbox" name="option" value = "hiking" />
+Drawing<input type = "checkbox" name="option" value = "drawing" />
+Reading Good Books<input type = "checkbox" name="option" value = "reading" />
+Playing Games<input type = "checkbox" name="options[]" value = "playing" />
+<p>Add More Hobbies &nbsp; <input type="text" id="prod" size="80" /><br><br>
+
+<input type="button" id="bt" value="Add Hobby" onclick="createChk(prod)" /></p>
+</div>
+ <br>
+Tell Me Something about Yourself: <br><br>
+
+<textarea id = "text" rows="10" cols="91"></textarea><br>
+Word Count:<span id="totalChars">0</span><br><br>
+<button onclick="submitFinal()">Submit</button>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script>
+
+var i= 1;
+function createChk(obj){
+
+	if (obj.value !== ''){
+
+    var chk = document.createElement('input');  
+     chk.setAttribute('type', 'checkbox');       
+     chk.setAttribute('id', 'prodName' + i);     
+     chk.setAttribute('value', obj.value);
+     chk.setAttribute('name', 'option');
+
+     var lbl = document.createElement('label');  
+     lbl.setAttribute('for', 'prodName' + i);
+
+     lbl.appendChild(document.createTextNode(obj.value));
+
+            
+     container.appendChild(chk);
+     container.appendChild(lbl);
+
+     obj.value = '';
+     document.getElementById(obj.id).focus();
+
+        i = i + 1;
+        }
+}
+
+
+counter = function() {
+    var value = $('#text').val();
+
+    if (value.length == 0) {
+        $('#totalChars').html(0);
+        return;
+    }
+
+    var regex = /\s+/gi;
+    var totalChars = value.length;
+
+    $('#totalChars').html(totalChars);
+};
+
+$(document).ready(function() {
+    $('#text').change(counter);
+    $('#text').keydown(counter);
+    $('#text').keypress(counter);
+    $('#text').keyup(counter);
+    $('#text').blur(counter);
+    $('#text').focus(counter);
+});
+
+
+
+function submitFinal() {
+
+var name = document.getElementById("name").value;
+var gender = document.getElementById("gender").value;
+var txtarea = document.getElementById("text").value;
+var checked = $('#hhobby').find(':checked').length;
+var hobbies = [];
+
+
+regEx = /^[A-Za-z]+$/;
+
+$.each($("input[name='option']:checked"), function(){            
+     hobbies.push($(this).val());
+     });
+  
+
+if (!checked){
+	alert('No checkboxes are checked!');
+	return false;
+}
+    
+else if(name.length == 0 || txtarea.length == 0){
+	alert("Value/s are missing. Please provide an input:");
+	return false;
+
+}
+
+else if(name !=name.match(regEx)){
+	alert("Name cannot contain special characters or numbers");
+	return false;
+}
+
+else{
+	  document.open();
+	  document.write('<a href="' + document.referrer + '">Go Back</a>');
+	  document.write("<br>" + "Your Name is:" + name + "<br>");
+	  document.write("Your Chosen Gender is:"+ gender + "<br>");
+	  document.write("Your hobbies include:" + hobbies.join(", ") + "<br>");
+	  document.write("You said Something about:"+ txtarea + "<br>");
+	  document.close();
+
+}
+  
+}
+
+
+</script>
+
+
+</body>
+</html>
