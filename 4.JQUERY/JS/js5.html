@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <title>JQUERY ACTIVITY</title>
+  <style type="text/css">
+    
+    #idtwo{
+
+      width:50px; 
+      height:50px; 
+      position:absolute; 
+      left:10px; 
+      top:240px;
+      background-color:#ff0000; 
+      border: black solid 3px;
+    }
+
+    .three{
+
+      width:50px; 
+      height:50px; 
+      display: block; 
+      position:relative; 
+      left:10px;background-color:#ff0000
+    }
+
+  </style>
+</head>
+<body>
+
+  <h4>PART 1:</h4>
+ <ul>
+  <li>First Question
+    <ul>
+      <li>This is answer!</li>
+    </ul>
+  </li>
+  <li>Second Question
+    <ul>
+      <li>This is answer!</li>
+    </ul>
+  </li>
+  <li>Third Question
+    <ul>
+      <li>This is answer!</li>
+    </ul>
+  </li>
+</ul>
+  <hr>
+
+
+<h4>PART2:</h4>
+  <button id="two">Start Animation</button>
+
+  <div id="idtwo"></div>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<hr>
+<h4>PART3:</h4>
+<button class="click">Start Animation</button><br><br>
+  <div class="three"></div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script type="text/javascript">
+
+//part1
+function handler(event) {
+  var target = $(event.target);
+  if (target.is("li")) {
+    target.children().toggle();
+  }
+}
+$("ul").click( handler ).find("ul").hide();
+
+
+
+//part2   
+$(document).ready(function(){
+  $("#two").click(function(){
+    var div = $("#idtwo");
+    startAnimation();
+
+function startAnimation(){
+      div.animate({width: 500}, "slow");
+      div.animate({height: 300}, "slow");
+      div.animate({left: 100}, "slow");
+      div.animate({borderWidth: 6}, "slow", startAnimation);
+    }
+  });
+});
+
+
+//part3
+
+$(function() { 
+    $(".click").on('click', function(){
+
+   if (!$(this).hasClass("expanded")){
+      $(".three").animate({left: '20px',},"slow");
+      $(".three").animate({height: '150px',},"slow");
+      $(".three").animate({width: '200px',},"slow");
+      $(this).addClass("expanded");
+   }
+   else {
+      $(".three").animate({height: '100px',},"slow");
+      $(this).removeClass("expanded");
+   }
+   $(this).toggleClass("expanded");
+
+  });
+});
+
+</script>
+</body>
+</html>
